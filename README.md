@@ -78,3 +78,4 @@ Edit the configuration to ensure only these ports are used:
 ## Docker 0.7 bug
 
 There is a bug with Docker 0.7.x that means a port cannot be opened for both TCP and UDP. There is [a fix](3435), but it hasn't yet been merged. As such it is recommended to run this on Docker 0.6.7.k
+# docker-freeswitch
