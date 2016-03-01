@@ -1,2 +1,2 @@
-Basded on elhodred's docker :)
+Based on elhodred's docker :)
 Thanks!
