@@ -1,16 +1,22 @@
-FROM debian
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends build-essential autoconf automake libtool zlib1g-dev libjpeg-dev libncurses-dev libssl-dev libcurl4-openssl-dev python-dev libexpat-dev libtiff-dev libx11-dev wget git
+FROM debian:jessie
 
-RUN echo "deb http://files.freeswitch.org/repo/deb/debian/ jessie main" > /etc/apt/sources.list.d/99FreeSWITCH.test.list
-RUN wget -O - http://files.freeswitch.org/repo/deb/debian/key.gpg |apt-key add - 
-RUN apt-get update
-RUN DEBIAN_FRONTEND=none APT_LISTCHANGES_FRONTEND=none apt-get install -y --force-yes freeswitch-video-deps-most
+MAINTAINER davidcsi "david.villasmil@gmail.com"
 
-RUN cd /usr/local/src; git config --global pull.rebase true
-RUN cd /usr/local/src;  git clone https://freeswitch.org/stash/scm/fs/freeswitch.git freeswitch
-RUN cd /usr/local/src/freeswitch; ./bootstrap.sh -j
-RUN cd /usr/local/src/freeswitch; ./configure --prefix=/opt/freeswitch
-RUN cd /usr/local/src/freeswitch; make; make install
-RUN cd /usr/local/src/freeswitch; make all cd-sounds-install cd-moh-install; make samples
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update -y -qq && \
+    apt-get install -y -qq curl
+
+RUN curl http://files.freeswitch.org/repo/deb/debian/freeswitch_archive_g0.pub | apt-key add -
+
+RUN echo "deb http://files.freeswitch.org/repo/deb/freeswitch-1.6/ jessie main" > /etc/apt/sources.list.d/freeswitch.list
+RUN apt-get update -y -qq && apt-get install -y -qq freeswitch-all freeswitch-all-dbg gdb supervisor
+
+ENV DEBIAN_FRONTEND dialog
+RUN apt-get clean
+
+RUN rm -rf /etc/freeswitch/*
+COPY ./conf /etc/freeswitch
+
+COPY ./supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+EXPOSE 5060 5061 6080 5081
+CMD ["/usr/bin/supervisord"]
