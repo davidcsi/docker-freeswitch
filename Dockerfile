@@ -17,9 +17,15 @@ RUN apt-get install -y freeswitch-meta-all gdb supervisor net-tools
 RUN apt-get clean
 
 RUN rm -rf /etc/freeswitch/*
-COPY ./conf /etc/freeswitch
+#COPY ./conf /etc/freeswitch
 
 COPY ./supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./startup.sh /startup.sh
 EXPOSE 5060 5061 6080 5081
 CMD ["/usr/bin/supervisord"]
+
+# Build:
+# sudo docker build -t davidv/telnyx-load-test-freeswitch:latest .
+#
+# Run:
+# sudo docker run -v ${pwd}/conf:/etc/freeswitch -it davidv/telnyx-load-test-freeswitch:latest .
