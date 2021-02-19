@@ -10,6 +10,16 @@
     -->
 
 
+    <list name="localnet.auto" default="allow">
+      <node type="allow" cidr="10.0.0.55/24"/>
+      <node type="allow" cidr="172.17.0.1/24"/>
+    </list>
+
+    <list name="domains" default="allow">
+      <node type="allow" cidr="10.0.0.55/24"/>
+      <node type="allow" cidr="172.17.0.1/24"/>
+    </list>
+
     <list name="domains" default="deny">
     </list>
 

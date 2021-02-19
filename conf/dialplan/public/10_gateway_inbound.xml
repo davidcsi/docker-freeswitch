@@ -15,5 +15,12 @@
       <action application="transfer" data="${destination_number} XML ${target_context}"/>
     </condition>
   </extension>
-  
+
+  <extension name="Echo-test">
+    <condition field="destination_number" expression="^9999$">
+      <action application="answer" data=""/>
+      <action application="echo" data=""/>
+    </condition>
+  </extension>
+
 </include>
