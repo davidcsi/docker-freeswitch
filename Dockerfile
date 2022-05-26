@@ -6,10 +6,11 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -y -qq && \
     apt-get install -y -qq curl gnupg2 wget lsb-release
 
-RUN wget --http-user=davidcsi --http-password=[token] -O - https://files.freeswitch.org/repo/deb/debian-release/fsstretch-archive-keyring.asc | apt-key add -
+RUN wget --http-user=signalwire --http-password=[TOKEN] -O /usr/share/keyrings/signalwire-freeswitch-repo.gpg https://freeswitch.signalwire.com/repo/deb/debian-release/signalwire-freeswitch-repo.gpg
+RUN echo "machine freeswitch.signalwire.com login signalwire password [TOKEN]" > /etc/apt/auth.conf
  
-RUN echo "deb http://files.freeswitch.org/repo/deb/debian-release/ `lsb_release -sc` main" > /etc/apt/sources.list.d/freeswitch.list
-RUN echo "deb-src http://files.freeswitch.org/repo/deb/debian-release/ `lsb_release -sc` main" >> /etc/apt/sources.list.d/freeswitch.list
+RUN echo "deb [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" > /etc/apt/sources.list.d/freeswitch.list
+RUN echo "deb-src [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" >> /etc/apt/sources.list.d/freeswitch.list
 
 ENV DEBIAN_FRONTEND dialog
 RUN apt-get update -y -qq 
@@ -25,7 +26,7 @@ EXPOSE 5060 5061 6080 5081
 CMD ["/usr/bin/supervisord"]
 
 # Build:
-# sudo docker build -t davidv/telnyx-load-test-freeswitch:latest .
+# sudo docker build -t davidcsi/freeswitch:latest .
 #
 # Run:
-# sudo docker run -v ${pwd}/conf:/etc/freeswitch --network=host -it davidv/telnyx-load-test-freeswitch:latest .
+# sudo docker run -v ${pwd}/conf:/etc/freeswitch --network=host -it davidcsi/freeswitch:latest .
