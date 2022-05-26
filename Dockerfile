@@ -29,4 +29,4 @@ CMD ["/usr/bin/supervisord"]
 # sudo docker build -t davidcsi/freeswitch:latest .
 #
 # Run:
-# sudo docker run -v ${pwd}/conf:/etc/freeswitch --network=host -it davidcsi/freeswitch:latest .
+# sudo docker run -v $(pwd)/conf:/etc/freeswitch --network=host -it davidcsi/freeswitch:latest .
