@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -y -qq && \
     apt-get install -y -qq curl gnupg2 wget lsb-release
 
-RUN wget --http-user=signalwire --http-password=[TOKEN] -O /usr/share/keyrings/signalwire-freeswitch-repo.gpg https://freeswitch.signalwire.com/repo/deb/debian-release/signalwire-freeswitch-repo.gpg
+RUN wget --http-user=davidcsi --http-password=[TOKEN] -O /usr/share/keyrings/signalwire-freeswitch-repo.gpg https://freeswitch.signalwire.com/repo/deb/debian-release/signalwire-freeswitch-repo.gpg
 RUN echo "machine freeswitch.signalwire.com login signalwire password [TOKEN]" > /etc/apt/auth.conf
  
 RUN echo "deb [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" > /etc/apt/sources.list.d/freeswitch.list
