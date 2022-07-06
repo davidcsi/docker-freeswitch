@@ -1,0 +1,31 @@
+-- Set countries areacodes
+country_table = {}
+country_table["AT"] = "43"  -- Austria
+country_table["BE"] = "32"  -- Belgium
+country_table["BG"] = "359" -- Bulgaria
+country_table["HR"] = "385" -- Croatia
+country_table["CY"] = "357" -- Cyprus
+country_table["CZ"] = "420" -- Czech Republic
+country_table["DK"] = "45"  -- Denmark
+country_table["EE"] = "372" -- Estonia
+country_table["FI"] = "358" -- Finland
+country_table["FR"] = "33"  -- France
+country_table["DE"] = "49"  -- Germany
+country_table["GR"] = "30"  -- Greece
+country_table["HU"] = "36"  -- Hungary
+country_table["IE"] = "353" -- Ireland
+country_table["IT"] = "39"  -- Italy
+country_table["LV"] = "371" -- Latvia
+country_table["LT"] = "370" -- Lithuania
+country_table["LU"] = "352" -- Luxembourg
+country_table["MT"] = "356" -- Malta
+country_table["NL"] = "31"  -- Netherlands
+country_table["PL"] = "48"  -- Poland
+country_table["PT"] = "351" -- Portugal
+country_table["RO"] = "40"  -- Romania
+country_table["SK"] = "421" -- Slovakia
+country_table["SI"] = "386" -- Slovenia
+country_table["ES"] = "34"  -- Spain
+country_table["SE"] = "46"  -- Sweden
+country_table[""] = "31"    -- Default NL
+
