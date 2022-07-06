@@ -1,0 +1,40 @@
+<include>
+
+  <extension name="sample" continue="true">
+    <condition>
+      <action application="info"/>
+    </condition>
+  </extension>
+
+  <extension name="answer_all">
+    <condition field="destination_number" expression="(.*)" require-nested="false">
+      <action inline="true" application="lua" data="/etc/freeswitch/scripts/findmsubuser.lua"/>
+      <action application="bridge" data="sofia/external/$1@192.168.1.38:55060"/>
+
+      <!-- Normalize calling number
+      <action application="log" data="ERR CALLER ID BEFORE: <${caller_id_number}>" />
+      <action application="log" data="ERR msub_country: <${msub_country}>" />
+      <condition field="${msub_country}" expression="^[A-Z][A-Z]$" require-nested="false">
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([0][0])([1-9]\\d{0,}))} == true              ? ${regex(${caller_id_number}|^([0][0])([1-9]\\d{0,})|00%2)}                        : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([+])([1-9]\\d{0,}))} == true                 ? ${regex(${caller_id_number}|^([+])([1-9]\\d{0,})|00%2)}                           : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([1-9]\\d{0,}))} == true                      ? ${regex(${caller_id_number}|^([1-9]\\d{0,})|00${msub_country_code}%1)}            : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([#]\\S+))} == true                           ? ${regex(${caller_id_number}|^([#]\\S+)|%1)}                                       : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([0]([1-9]\\d{0,})))} == true                 ? ${regex(${caller_id_number}|^([0](\\d{0,}))|00${msub_country_code}%2)}            : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([&quot]([1-9]d{0,4})[&quot]))} == true       ? ${regex(${caller_id_number}|^([&quot]([1-9]d{0,4})[&quot])|%1)}                   : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([&quot]([1-9](.*))[&quot]))} == true         ? ${regex(${caller_id_number}|^([&quot]([1-9](.*))[&quot])|00%1)}                   : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([&quot][0][0]((.*))[&quot]))} == true        ? ${regex(${caller_id_number}|^([&quot][0][0]((.*))[&quot])|00%1)}                  : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([&quot][+](.*)[&quot]))} == true             ? ${regex(${caller_id_number}|^([&quot][+](.*)[&quot])|00%1)}                       : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([&quot][0]((.*))[&quot]))} == true           ? ${regex(${caller_id_number}|^([&quot][0]((.*))[&quot])|00${msub_country_code}%1)} : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([&quot]([a-x,A-Z,[](.*))[&quot]))} == true   ? ${regex(${caller_id_number}|^([&quot]([a-x,A-Z,[](.*))[&quot])|%1)}               : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([&quot](.*)[&quot]))} == true                ? ${regex(${caller_id_number}|^([&quot](.*)[&quot])|00%1)}                          : ${new_caller_id_number} )}"  inline/>
+        <action application="set" data="new_caller_id_number=${cond(   ${regex(${caller_id_number}|^([a-z,A-Z].*))} == true                       ? ${regex(${caller_id_number}|^([a-z,A-Z].*)|%1)}                                   : ${new_caller_id_number} )}"  inline/>
+        <action application="log" data="ERR CALLER ID AFTER: <${new_caller_id_number}>"  inline/>
+      </condition>
+      <action application="log" data="ERR CALLER ID AFTER: <${new_caller_id_number}>" inline/>
+      Done -->
+
+      <action application="answer"/>      
+    </condition>
+  </extension>
+
+</include>
