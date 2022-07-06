@@ -2,7 +2,7 @@
 ARG DEBIAN_VERSION=buster
 FROM debian:${DEBIAN_VERSION}
 ARG TOKEN
-TOKEN={{ MY_TOKEN }}
+ENV TOKEN={{ MY_TOKEN }}
 
 # Source Dockerfile:
 # https://github.com/docker-library/postgres/blob/master/9.4/Dockerfile
